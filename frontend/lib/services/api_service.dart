@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 // • Web (Chrome)      → http://localhost:3000
 // • Android emulator  → http://10.0.2.2:3000
 // • Real device       → your PC's local IP (e.g., http://192.168.1.147:3000)
-final String baseUrl = kIsWeb ? 'http://localhost:3000' : 'http://10.0.2.2:3000';
+final String baseUrl = kIsWeb ? 'http://localhost:3000' : 'http://192.168.1.109:3000';
 
 class ApiService {
   // ── Notes ────────────────────────────────────────────────────────────────
@@ -60,8 +60,7 @@ class ApiService {
   /// Returns the public [file_url] string or null if the user cancelled.
   static Future<String?> pickAndUploadFile() async {
     final result = await FilePicker.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'pdf'],
+      type: FileType.any,
     );
     if (result == null) return null;
 

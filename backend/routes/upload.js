@@ -11,14 +11,15 @@ const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
   fileFilter: (req, file, cb) => {
-    const allowed = ['image/jpeg', 'image/png', 'application/pdf'];
-    cb(null, allowed.includes(file.mimetype));
+    console.log('Incoming file:', file.originalname, 'MIME:', file.mimetype);
+    // Accept all files for now to debug the Android physical device issue
+    cb(null, true);
   },
 });
 
 router.post('/', upload.single('file'), (req, res) => {
   if (!req.file) {
-    return res.status(400).json({ error: 'Invalid file type. Only JPG, PNG, and PDF are allowed.' });
+    return res.status(400).json({ error: 'Upload failed. No file received.' });
   }
   const PORT = process.env.PORT || 3000;
   res.json({ file_url: `http://localhost:${PORT}/uploads/${req.file.filename}` });

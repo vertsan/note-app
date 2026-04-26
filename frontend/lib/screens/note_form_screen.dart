@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../notification.dart';
 
 class NoteFormScreen extends StatefulWidget {
   /// Pass an existing note map to edit; leave null to create a new note.
@@ -88,6 +89,13 @@ class _NoteFormScreenState extends State<NoteFormScreen> {
         }
       } else {
         await ApiService.createNote(body);
+        
+        // Show local notification
+        await showSimpleNotification(
+          'Note Created',
+          'Your note "${body['title']}" was created successfully!',
+        );
+
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
