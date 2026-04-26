@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "437366564133",
+    "project_id": "note-app-alert",
+    "storage_bucket": "note-app-alert.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437366564133:android:40b624a45919f0cf4a66cc",
+        "android_client_info": {
+          "package_name": "com.sbku.noteapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU0zoYXNWIzqgejgGbORDXvt_8WsjfxKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
