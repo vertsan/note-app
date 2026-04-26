@@ -1,22 +1,56 @@
-const router = require("express").Router();
-const Note = require("../models/Note");
+const router = require('express').Router();
+const Note = require('../models/Note');
 
-router.get("/", async (req, res) => {
-  res.json(await Note.findAll());
+// GET all notes
+router.get('/', async (req, res) => {
+  try {
+    res.json(await Note.findAll());
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
-router.get("/:id", async (req, res) => {
-  res.json(await Note.findByPk(req.params.id));
+
+// GET single note
+router.get('/:id', async (req, res) => {
+  try {
+    const note = await Note.findByPk(req.params.id);
+    if (!note) return res.status(404).json({ error: 'Note not found' });
+    res.json(note);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
-router.post("/", async (req, res) => {
-  res.status(201).json(await Note.create(req.body));
+
+// POST create
+router.post('/', async (req, res) => {
+  try {
+    res.status(201).json(await Note.create(req.body));
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
-router.put("/:id", async (req, res) => {
-  await Note.update(req.body, { where: { id: req.params.id } });
-  res.json(await Note.findByPk(req.params.id));
+
+// PUT update
+router.put('/:id', async (req, res) => {
+  try {
+    await Note.update(req.body, { where: { id: req.params.id } });
+    const updated = await Note.findByPk(req.params.id);
+    if (!updated) return res.status(404).json({ error: 'Note not found' });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
-router.delete("/:id", async (req, res) => {
-  await Note.destroy({ where: { id: req.params.id } });
-  res.json({ message: "Deleted" });
+
+// DELETE
+router.delete('/:id', async (req, res) => {
+  try {
+    const deleted = await Note.destroy({ where: { id: req.params.id } });
+    if (!deleted) return res.status(404).json({ error: 'Note not found' });
+    res.json({ message: 'Deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
