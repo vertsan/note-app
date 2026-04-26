@@ -59,7 +59,7 @@ class ApiService {
   /// Lets the user pick a JPG / PNG / PDF and uploads it.
   /// Returns the public [file_url] string or null if the user cancelled.
   static Future<String?> pickAndUploadFile() async {
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'png', 'pdf'],
     );
